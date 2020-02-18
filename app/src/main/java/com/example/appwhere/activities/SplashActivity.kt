@@ -47,6 +47,7 @@ class SplashActivity : BaseActivity() {
 
             override fun onAnimationEnd(p0: Animation?) {
                 launchLoginActivity()
+                finish()
             }
 
             override fun onAnimationStart(p0: Animation?) {

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.appwhere.R
 import com.example.appwhere.bases.BaseActivity
+import com.example.appwhere.home.MapFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -14,6 +15,7 @@ class MainActivity : BaseActivity() {
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_map -> {
+                addMapScreen()
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_legend -> {
@@ -34,6 +36,9 @@ class MainActivity : BaseActivity() {
         navigation.selectedItemId = R.id.navigation_map
     }
 
+    private fun addMapScreen () {
+        addFragment(MapFragment.newInstance(), false)
+    }
 
     companion object {
         fun getInstance(context: Context): Intent {

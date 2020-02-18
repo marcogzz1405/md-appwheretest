@@ -16,4 +16,7 @@ public interface ApiService {
     //@FormUrlEncoded
     Call<Login> login(@QueryMap Map<String, String> params);
 
+    @GET("get-merchants")
+
+
 }

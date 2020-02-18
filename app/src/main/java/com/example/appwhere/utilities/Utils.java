@@ -12,4 +12,11 @@ public class Utils {
                 .build();
     }
 
+    public static Retrofit getMerchant() {
+        return new Retrofit.Builder()
+                .baseUrl(Settings.URL_MERCHANTT)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+    }
+
 }
