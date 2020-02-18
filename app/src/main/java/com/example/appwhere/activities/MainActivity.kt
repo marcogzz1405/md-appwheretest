@@ -7,6 +7,7 @@ import android.os.Bundle
 import com.example.appwhere.R
 import com.example.appwhere.bases.BaseActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
 
@@ -29,6 +30,8 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        navigation.selectedItemId = R.id.navigation_map
     }
 
 
