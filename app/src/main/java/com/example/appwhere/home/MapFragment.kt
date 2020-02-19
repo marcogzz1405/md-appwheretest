@@ -4,13 +4,18 @@ import android.Manifest
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.appwhere.R
+import com.example.appwhere.api.ListenerMerchant
+import com.example.appwhere.api.PresenterMerchant
 import com.example.appwhere.bases.BaseFragment
+import com.example.appwhere.models.Login
+import com.example.appwhere.models.Merchant
 import com.example.appwhere.utilities.Settings
 
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -21,11 +26,13 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 
-class MapFragment : BaseFragment(), OnMapReadyCallback {
+class MapFragment : BaseFragment(), OnMapReadyCallback, ListenerMerchant {
 
     private val cLocationRequestCode = 101
     private lateinit var mMap: GoogleMap
     private var marker: Marker? = null
+
+    private var presenterMerchant: PresenterMerchant? = null
 
     companion object {
         fun newInstance(): MapFragment {
@@ -41,11 +48,18 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        presenterMerchant = PresenterMerchant()
+        //presenterMerchant?.listener = requireContext()
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         //var mapFragment : SupportMapFragment?=null
         //mapFragment = fragmentManager!!.findFragmentById(R.id.map) as SupportMapFragment?
         //mapFragment?.getMapAsync(this)
         startMap()
+        getMerchant()
+    }
+
+    fun getMerchant() {
+        presenterMerchant?.attempMerchant()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
@@ -93,6 +107,21 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     }
 
 
+    override fun showErrorMessage(message: String) {
+        if(message != null){
+            showMessage(Settings.TYPE_MESSAGE_ERROR, getString(R.string.error_title), message)
+        }
+    }
+
+    override fun successEntry(merchantt: Merchant) {
+        Log.d("TAG", "Merchant: " + merchantt.status)
+    }
+
+    override fun showProgress() {
+    }
+
+    override fun hideProgress() {
+    }
 
     /**
      * Manipulates the map once available.

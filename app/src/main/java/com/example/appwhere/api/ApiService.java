@@ -1,6 +1,7 @@
 package com.example.appwhere.api;
 
 import com.example.appwhere.models.Login;
+import com.example.appwhere.models.Merchant;
 
 import java.util.Map;
 
@@ -17,6 +18,6 @@ public interface ApiService {
     Call<Login> login(@QueryMap Map<String, String> params);
 
     @GET("get-merchants")
-
+    Call<Merchant> merchant();
 
 }
